@@ -245,6 +245,20 @@ func (i *Int) Mul(a, b kyber.Scalar) kyber.Scalar {
 	return i
 }
 
+// MulT sets the target to a^n mod M.
+// Target receives a's modulus.
+func (i *Int) MulT(a kyber.Scalar, n int) kyber.Scalar {
+	ai := a.(*Int)
+	i.V = ai.V
+	i.M = ai.M
+	for j := 1; j < n; j++ {
+		i.V.Mul(&ai.V, &i.V)
+	}
+	i.V.Mod(&i.V, i.M)
+	//fmt.Println(&i.V)
+	return i
+}
+
 // Div sets the target to a * b^-1 mod M, where b^-1 is the modular inverse of b.
 func (i *Int) Div(a, b kyber.Scalar) kyber.Scalar {
 	ai := a.(*Int)

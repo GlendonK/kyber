@@ -42,6 +42,9 @@ type Scalar interface {
 	// Set to the modular product of scalars a and b.
 	Mul(a, b Scalar) Scalar
 
+	// Set to the modular product of scalars a and b.
+	MulT(a Scalar, i int) Scalar
+
 	// Set to the modular division of scalar a by scalar b.
 	Div(a, b Scalar) Scalar
 
